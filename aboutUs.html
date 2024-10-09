@@ -17,10 +17,32 @@
         },
       };
     </script>
+    <style>
+      .underline-active {
+        text-decoration: underline;
+      }
+
+      /* Fade-in animation */
+      .fade-in {
+        opacity: 0;
+        animation: fadeInAnimation ease-in 1s;
+        animation-fill-mode: forwards;
+      }
+
+      @keyframes fadeInAnimation {
+        0% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
   </head>
 
   <body
-    class="font-poppins bg-gradient-to-r from-gray-100 via-gray-200 to-gray-200"
+    class="font-poppins bg-gradient-to-r from-gray-100 via-gray-200 to-gray-200 fade-in"
   >
     <!--header-->
     <header>
@@ -43,19 +65,37 @@
             <li>
               <a class="animated-underline" href="./aboutUs.html">About</a>
             </li>
-            <li>
-              <a class="animated-underline" href="./films.html">Films</a>
+            <!-- Dropdown menu -->
+            <li class="relative">
+              <a class="animated-underline" href="#" id="work-menu">Work</a>
+              <ul
+                id="work-dropdown"
+                class="absolute left-0 hidden mt-2 bg-white border border-gray-200 rounded shadow-lg"
+              >
+                <li>
+                  <a
+                    class="block px-4 py-2 text-gray-700 hover:bg-gray-200"
+                    href="./films.html"
+                    id="films-link"
+                    >Films</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="block px-4 py-2 text-gray-700 hover:bg-gray-200"
+                    href="./images.html"
+                    id="photos-link"
+                    >Photos</a
+                  >
+                </li>
+              </ul>
             </li>
             <li>
-              <a class="animated-underline" href="./images.html">Photos</a>
-            </li>
-            <li>
-              <a class="animated-underline" href="./travel.html">Travel</a>
+              <a class="animated-underline" href="./blog.html">Blog</a>
             </li>
             <li>
               <a class="animated-underline" href="./quote.html">Quote</a>
             </li>
-
             <li>
               <a class="animated-underline" href="./store.html">Store</a>
             </li>
@@ -106,18 +146,33 @@
                 >About</a
               >
             </li>
-            <li>
-              <a class="animated-underline block" href="./films.html">Films</a>
+            <!-- Dropdown menu -->
+            <li class="relative">
+              <a class="animated-underline" href="#" id="work-menu">Work</a>
+              <ul
+                id="work-dropdown"
+                class="absolute left-0 hidden mt-2 bg-white border border-gray-200 rounded shadow-lg"
+              >
+                <li>
+                  <a
+                    class="block px-4 py-2 text-gray-700 hover:bg-gray-200"
+                    href="./films.html"
+                    id="films-link"
+                    >Films</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="block px-4 py-2 text-gray-700 hover:bg-gray-200"
+                    href="./images.html"
+                    id="photos-link"
+                    >Photos</a
+                  >
+                </li>
+              </ul>
             </li>
             <li>
-              <a class="animated-underline block" href="./images.html"
-                >Photos</a
-              >
-            </li>
-            <li>
-              <a class="animated-underline block" href="./travel.html"
-                >Travel</a
-              >
+              <a class="animated-underline" href="./blog.html">Blog</a>
             </li>
             <li>
               <a class="animated-underline block" href="./quote.html">Quote</a>
@@ -234,5 +289,16 @@
         </div>
       </div>
     </section>
+
+    <script>
+      window.addEventListener("load", function () {
+        document.body.classList.remove("fade-out");
+      });
+
+      // Optional: Fade-out on page leave
+      window.addEventListener("beforeunload", function () {
+        document.body.classList.add("fade-out");
+      });
+    </script>
   </body>
 </html>

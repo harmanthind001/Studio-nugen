@@ -22,7 +22,7 @@
 }
 
 @media (max-width: 768px) {
-  .animated-underline  {
+  .animated-underline {
     width: fit-content; /* Set underline width to match text */
   }
 }
