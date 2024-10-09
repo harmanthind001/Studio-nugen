@@ -159,59 +159,93 @@
 
       </form>
     </div>
-  <script>
-    // Desktop work menu
-    const workMenu = document.getElementById('work-menu');
-    const workDropdown = document.getElementById('work-dropdown');
-
-    workMenu.addEventListener('click', (e) => {
-      e.preventDefault();
-      toggleDropdown(workDropdown);
-    });
-
-    // Mobile work menu
-    const mobileWorkMenu = document.getElementById('mobile-work-menu');
-    const mobileWorkDropdown = document.getElementById('mobile-work-dropdown');
-
-    mobileWorkMenu.addEventListener('click', (e) => {
-      e.preventDefault();
-      toggleDropdown(mobileWorkDropdown);
-    });
-
-    // Toggle dropdown with fade effect
-    // function toggleDropdown(dropdown) {
-    //   if (dropdown.classList.contains('hidden')) {
-    //     dropdown.classList.remove('hidden', 'fade-out');
-    //     dropdown.classList.add('fade-in');
-    //   } else {
-    //     dropdown.classList.remove('fade-in');
-    //     dropdown.classList.add('fade-out');
-    //     setTimeout(() => {
-    //       dropdown.classList.add('hidden');
-    //     }, 300); // Match this to the transition time (0.3s)
-    //   }
-    // }
-
-    // Close dropdown if click is outside
-    document.addEventListener('click', function (event) {
-      if (!workMenu.contains(event.target) && !workDropdown.contains(event.target)) {
-        closeDropdown(workDropdown);
+    <script>
+      // Desktop work menu
+      const workMenu = document.getElementById('work-menu');
+      const workDropdown = document.getElementById('work-dropdown');
+    
+      workMenu.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleDropdown(workDropdown);
+      });
+    
+      // Mobile work menu
+      const mobileWorkMenu = document.getElementById('mobile-work-menu');
+      const mobileWorkDropdown = document.getElementById('mobile-work-dropdown');
+    
+      mobileWorkMenu.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleDropdown(mobileWorkDropdown);
+      });
+    
+      // Function to toggle dropdown with fade effect
+      function toggleDropdown(dropdown) {
+        if (dropdown.classList.contains('hidden')) {
+          dropdown.classList.remove('hidden', 'fade-out');
+          // dropdown.classList.add('fade-in');
+        } else {
+          dropdown.classList.remove('fade-in');
+          dropdown.classList.add('fade-out');
+          setTimeout(() => {
+            dropdown.classList.add('hidden');
+          }, 300); // Match this to the transition time (0.3s)
+        }
       }
-      if (!mobileWorkMenu.contains(event.target) && !mobileWorkDropdown.contains(event.target)) {
-        closeDropdown(mobileWorkDropdown);
+    
+      // Close dropdown if click is outside
+      document.addEventListener('click', function (event) {
+        if (!workMenu.contains(event.target) && !workDropdown.contains(event.target)) {
+          closeDropdown(workDropdown);
+        }
+        if (!mobileWorkMenu.contains(event.target) && !mobileWorkDropdown.contains(event.target)) {
+          closeDropdown(mobileWorkDropdown);
+        }
+      });
+    
+      function closeDropdown(dropdown) {
+        if (!dropdown.classList.contains('hidden')) {
+          dropdown.classList.remove('fade-in');
+          dropdown.classList.add('fade-out');
+          setTimeout(() => {
+            dropdown.classList.add('hidden');
+          }, 300);
+        }
       }
-    });
-
-    function closeDropdown(dropdown) {
-      if (!dropdown.classList.contains('hidden')) {
-        dropdown.classList.remove('fade-in');
-        dropdown.classList.add('fade-out');
+    
+      // Menu toggle for mobile
+      document.getElementById('menu-toggle').addEventListener('click', function () {
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenu.classList.toggle('hidden');
+      });
+    
+      // Underline active link for mobile and desktop
+      const currentPath = window.location.pathname;
+      const filmsLink = document.getElementById('films-link');
+      const photosLink = document.getElementById('photos-link');
+    
+      if (currentPath.includes('films.html')) {
+        filmsLink.classList.add('underline-active');
+      } else if (currentPath.includes('images.html')) {
+        photosLink.classList.add('underline-active');
+      }
+    
+      // Add fade effect for link navigation
+      document.querySelectorAll('a.animated-underline').forEach((link) => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault(); // Prevent default link behavior
+          fadeOutAndNavigate(link.href); // Navigate using the fade function
+        });
+      });
+    
+      // Function to handle page fade-out before navigation
+      function fadeOutAndNavigate(url) {
+        document.body.classList.add('fade-out');
         setTimeout(() => {
-          dropdown.classList.add('hidden');
+          window.location.href = url;
         }, 300);
       }
-    }
-  </script>
+    </script>
+    
 </body>
 
 </html>
