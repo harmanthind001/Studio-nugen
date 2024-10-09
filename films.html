@@ -39,6 +39,26 @@
       .no-scroll {
         overflow: hidden;
       }
+
+      .underline-active {
+        text-decoration: underline;
+      }
+      /* Fade-in animation */
+      .fade-in {
+        opacity: 0;
+        animation: fadeInAnimation ease-in 1s;
+        animation-fill-mode: forwards;
+      }
+
+      @keyframes fadeInAnimation {
+        0% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 1;
+        }
+      }
     </style>
     <script>
       tailwind.config = {
@@ -54,7 +74,7 @@
   </head>
 
   <body
-    class="font-poppins bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300"
+    class="font-poppins bg-gradient-to-r from-gray-100 via-gray-200 fade-in to-gray-300"
   >
     <!--header-->
     <header>
@@ -77,14 +97,34 @@
             <li>
               <a class="animated-underline" href="./aboutUs.html">About</a>
             </li>
-            <li>
-              <a class="animated-underline" href="./films.html">Films</a>
+            <!-- Dropdown menu -->
+            <li class="relative">
+              <a class="animated-underline" href="#" id="work-menu">Work</a>
+              <ul
+                id="work-dropdown"
+                class="absolute left-0 hidden mt-2 bg-white border border-gray-200 rounded shadow-lg"
+              >
+                <li>
+                  <a
+                    class="block px-4 py-2 text-gray-700 hover:bg-gray-200"
+                    href="./films.html"
+                    id="films-link"
+                    >Films</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="block px-4 py-2 text-gray-700 hover:bg-gray-200"
+                    href="./images.html"
+                    id="photos-link"
+                    >Photos</a
+                  >
+                </li>
+              </ul>
             </li>
+
             <li>
-              <a class="animated-underline" href="./images.html">Photos</a>
-            </li>
-            <li>
-              <a class="animated-underline" href="./travel.html">Travel</a>
+              <a class="animated-underline" href="./blog.html">Blog</a>
             </li>
             <li>
               <a class="animated-underline" href="./quote.html">Quote</a>
@@ -140,18 +180,35 @@
                 >About</a
               >
             </li>
-            <li>
-              <a class="animated-underline block" href="./films.html">Films</a>
+            <!-- Dropdown menu -->
+            <li class="relative">
+              <a class="animated-underline" href="#" id="mobile-work-menu"
+                >Work</a
+              >
+              <ul
+                id="mobile-work-dropdown"
+                class="absolute left-0 hidden mt-2 bg-white border border-gray-200 rounded shadow-lg z-10"
+              >
+                <li>
+                  <a
+                    class="block px-4 py-2 text-gray-700 hover:bg-gray-200"
+                    href="./films.html"
+                    id="films-link"
+                    >Films</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="block px-4 py-2 text-gray-700 hover:bg-gray-200"
+                    href="./images.html"
+                    id="photos-link"
+                    >Photos</a
+                  >
+                </li>
+              </ul>
             </li>
             <li>
-              <a class="animated-underline block" href="./images.html"
-                >Photos</a
-              >
-            </li>
-            <li>
-              <a class="animated-underline block" href="./travel.html"
-                >Travel</a
-              >
+              <a class="animated-underline" href="./blog.html">Blog</a>
             </li>
             <li>
               <a class="animated-underline block" href="./quote.html">Quote</a>
@@ -406,4 +463,51 @@
       </div>
     </div>
   </body>
+  <script>
+    // Toggle dropdown on click
+    const workMenu = document.getElementById("work-menu");
+    const workDropdown = document.getElementById("work-dropdown");
+
+    workMenu.addEventListener("click", (e) => {
+      e.preventDefault(); // Prevent navigation
+      workDropdown.classList.toggle("hidden");
+    });
+
+    // Underline active link
+    const currentPath = window.location.pathname;
+    const filmsLink = document.getElementById("films-link");
+    const photosLink = document.getElementById("photos-link");
+    document
+      .getElementById("mobile-work-menu")
+      .addEventListener("click", function () {
+        const dropdown = document.getElementById("mobile-work-dropdown");
+        dropdown.classList.toggle("hidden");
+      });
+    if (currentPath.includes("films.html")) {
+      filmsLink.classList.add("underline-active");
+    } else if (currentPath.includes("images.html")) {
+      photosLink.classList.add("underline-active");
+    }
+    // Fade effect for page transitions
+    // const links = document.querySelectorAll('a[href]');
+    // const body = document.body;
+
+    // links.forEach((link) => {
+    //   link.addEventListener('click', (e) => {
+    //     if (link.getAttribute('href') !== "#") {
+    //       e.preventDefault(); // Prevent default link behavior
+    //       body.classList.add('fade-out'); // Start fade-out effect
+
+    //       setTimeout(() => {
+    //         window.location = link.getAttribute('href'); // Navigate to the new page
+    //       }, 500); // Wait for the fade-out effect to finish
+    //     }
+    //   });
+    // });
+
+    // Fade in effect on page load
+    // window.addEventListener('load', () => {
+    //   body.classList.remove('fade-out');
+    // });
+  </script>
 </html>

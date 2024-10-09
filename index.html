@@ -17,9 +17,38 @@
         },
       };
     </script>
+    <style>
+      .underline-active {
+        text-decoration: underline;
+      }
+
+      /* Added styles */
+      .dropdown {
+        position: absolute;
+        z-index: 10;
+        /* Set a high z-index for dropdowns */
+      }
+
+      /* Fade-in animation */
+      .fade-in {
+        opacity: 0;
+        animation: fadeInAnimation ease-in 1s;
+        animation-fill-mode: forwards;
+      }
+
+      @keyframes fadeInAnimation {
+        0% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
   </head>
 
-  <body class="font-poppins">
+  <body class="font-poppins fade-in">
     <div class="relative w-full h-screen">
       <!--header-->
       <header>
@@ -42,19 +71,43 @@
               <li>
                 <a class="animated-underline" href="./aboutUs.html">About</a>
               </li>
-              <li>
-                <a class="animated-underline" href="./films.html">Films</a>
+              <!-- Dropdown menu -->
+              <li class="relative">
+                <a
+                  class="animated-underline cursor-pointer"
+                  href="#"
+                  id="work-menu"
+                  >Work</a
+                >
+                <ul
+                  id="work-dropdown"
+                  class="dropdown absolute left-0 hidden mt-2 bg-white border border-gray-200 rounded shadow-lg"
+                >
+                  <li>
+                    <a
+                      class="block px-4 py-2 text-gray-700 hover:bg-gray-200"
+                      href="./films.html"
+                      id="films-link"
+                      >Films</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="block px-4 py-2 text-gray-700 hover:bg-gray-200"
+                      href="./images.html"
+                      id="photos-link"
+                      >Photos</a
+                    >
+                  </li>
+                </ul>
               </li>
+
               <li>
-                <a class="animated-underline" href="./images.html">Photos</a>
-              </li>
-              <li>
-                <a class="animated-underline" href="./travel.html">Travel</a>
+                <a class="animated-underline" href="./blog.html">Blog</a>
               </li>
               <li>
                 <a class="animated-underline" href="./quote.html">Quote</a>
               </li>
-
               <li>
                 <a class="animated-underline" href="./store.html">Store</a>
               </li>
@@ -75,6 +128,7 @@
             </ul>
             <div class="md:hidden">
               <button
+                id="menu-toggle"
                 class="text-black focus:outline-none"
                 onclick="document.querySelector('#mobile-menu').classList.toggle('hidden')"
               >
@@ -105,20 +159,38 @@
                   >About</a
                 >
               </li>
-              <li>
-                <a class="animated-underline block" href="./films.html"
-                  >Films</a
+              <!-- Dropdown menu for mobile -->
+              <li class="relative">
+                <a
+                  class="animated-underline cursor-pointer"
+                  href="#"
+                  id="mobile-work-menu"
+                  >Work</a
                 >
+                <ul
+                  id="mobile-work-dropdown"
+                  class="dropdown absolute left-0 hidden mt-2 bg-white border border-gray-200 rounded shadow-lg"
+                >
+                  <li>
+                    <a
+                      class="block px-4 py-2 text-gray-700 hover:bg-gray-200"
+                      href="./films.html"
+                      id="films-link"
+                      >Films</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="block px-4 py-2 text-gray-700 hover:bg-gray-200"
+                      href="./images.html"
+                      id="photos-link"
+                      >Photos</a
+                    >
+                  </li>
+                </ul>
               </li>
               <li>
-                <a class="animated-underline block" href="./images.html"
-                  >Photos</a
-                >
-              </li>
-              <li>
-                <a class="animated-underline block" href="./travel.html"
-                  >Travel</a
-                >
+                <a class="animated-underline block" href="./blog.html">Blog</a>
               </li>
               <li>
                 <a class="animated-underline block" href="./quote.html"
@@ -152,7 +224,7 @@
       <section class="h-full w-full">
         <img
           class="hidden object-cover md:block w-full h-full"
-          src="./assets/front1.jpeg"
+          src="./assets/homePage.jpg"
           alt="Background"
         />
         <img
@@ -165,13 +237,52 @@
         ></div>
       </section>
     </div>
-    <script>
-      const menuToggle = document.getElementById("menu-toggle");
-      const mobileMenu = document.getElementById("mobile-menu");
 
-      menuToggle.addEventListener("click", () => {
-        mobileMenu.classList.toggle("hidden");
+    <script>
+      // Function to handle dropdown visibility
+      document
+        .getElementById("work-menu")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+          const dropdown = document.getElementById("work-dropdown");
+          dropdown.classList.toggle("hidden");
+        });
+
+      document
+        .getElementById("mobile-work-menu")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+          const dropdown = document.getElementById("mobile-work-dropdown");
+          dropdown.classList.toggle("hidden");
+        });
+
+      // Function to handle menu toggle on mobile
+      document
+        .getElementById("menu-toggle")
+        .addEventListener("click", function () {
+          const mobileMenu = document.getElementById("mobile-menu");
+          mobileMenu.classList.toggle("hidden");
+        });
+
+      // Underline active link for mobile and desktop
+      const currentPath = window.location.pathname;
+      const filmsLink = document.getElementById("films-link");
+      const photosLink = document.getElementById("photos-link");
+
+      // Add event listeners to the links to handle navigation with fade effect
+      document.querySelectorAll("a.animated-underline").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault(); // Prevent default link behavior
+          fadeOutAndNavigate(link.href); // Navigate using the fade function
+        });
       });
+
+      // Existing underline logic
+      if (currentPath.includes("films.html")) {
+        filmsLink.classList.add("underline-active");
+      } else if (currentPath.includes("images.html")) {
+        photosLink.classList.add("underline-active");
+      }
     </script>
   </body>
 </html>
